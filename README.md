@@ -1,18 +1,21 @@
-# keycloak-postgres-nginx
+# keycloak-nginx-lets-encrypt
 
-Docker configuration for Keycloak + Nginx + Postgres with Let's Encrypt support.
+Docker configuration for Nginx Reverse Proxy with Let's Encrypt auto renew support.
 
-Easily setup a standalone node for [Keycloak](http://www.keycloak.org) server so you can worry less about authentication and worry more about your application features.
+Easily setup to proxy for a standalone http server (e.g. [Keycloak](http://www.keycloak.org), Wordpress, or Backend API).
 
-## Usage
-
-1. Modify the variables in the `.env` file.
-
-1. For `LE_OPTIONS`, choose either `--staging` or `--keep-until-expiring`, not both. (TODO: debug options failure)
-
-1. For dev purposes: `docker-compose -f docker-compose-self-signed.yml up`
-
-1. For production: `docker-compose -f docker-compose-lets-encrypt.yml up`
+## Overview
+```code
+keycloak-nignx-lets-encrypt        keycloak
+           |                    (or HTTP server)
+           |                           |
+           V                           V
+   HTTP   ___                         ___
+ -- 80  -|   |                 HTTP  |   |
+         |   | --------------> 8080 -|   |
+ -- 443 -|___|                       |___|
+   HTTPS 
+```
 
 ## License
 
